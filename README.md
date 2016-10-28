@@ -1,6 +1,6 @@
 # Jepsen
 
-Breaking distributed systems so you don't have to.
+Breaking distributed systems so you don't have to. whoo a!
 
 Jepsen is a Clojure library. A test is a Clojure program which uses the Jepsen
 library to set up a distributed system, run a bunch of operations against that
