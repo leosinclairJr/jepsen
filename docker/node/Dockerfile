@@ -1,5 +1,6 @@
 # FIXME: tutum/debian will be deprecated soon: https://github.com/tutumcloud/tutum-debian/blob/master/README.md
-FROM ubuntu:16.04
+# FROM ubuntu:16.04
+FROM ceph/daemon:tag-build-master-jewel-ubuntu-16.04
 
 # Install packages
 RUN apt-get update && \
@@ -16,4 +17,6 @@ ENV AUTHORIZED_KEYS **None**
 
 EXPOSE 22
 
+#overide base image entrypoint
+ENTRYPOINT []
 CMD ["/run.sh"]
