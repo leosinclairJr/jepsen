@@ -19,15 +19,13 @@
 ;(defn r   [k] (c/exec :ceph :config-key :get k) )
 ;(defn w   [k v] (c/exec :ceph :config-key :put k v))
 
-;;(defn -main [& args]
-  ;(println "Working!")
-  ;;tests/noop-test
-  ;;)
+(defn -main [& args]
+  (println "Working!")
+  tests/noop-test
+  )
 
-(defn ceph-test
-  [version]
-  println "Working!"
-  tests/noop-test)
+;(defn ceph-test
+  ;[version]
   ;(assoc tests/noop-test
          ;:name    "ceph"
          ;:os      debian/os
