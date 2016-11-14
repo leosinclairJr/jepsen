@@ -7,4 +7,4 @@
                  [org.clojure/tools.logging "0.2.6"]
                  [org.clojure/tools.cli "0.3.3"]
                  [jepsen "0.1.3-SNAPSHOT"]]
-  :main ceph.core)
+  :main jepsen.ceph.core)
