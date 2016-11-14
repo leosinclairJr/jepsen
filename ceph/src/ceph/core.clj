@@ -9,7 +9,8 @@
                     [generator  :as gen]
                     [nemesis    :as nemesis]
                     [tests      :as tests]
-                    ;;[util       :refer [timeout]]]
+                    ;;[util       :refer [timeout]]
+             ]
             [jepsen.os.debian   :as debian]
             [knossos.model      :as model]))
 
