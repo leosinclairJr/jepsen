@@ -1,4 +1,4 @@
-(ns ceph.core-test
+(ns jepsen.ceph.core-test
   (:require [clojure.test :refer :all]
             ;;[jepsen.ceph.core :refer :all]))
             [jepsen.ceph.core :as ceph]))
