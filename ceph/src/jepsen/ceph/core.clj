@@ -20,7 +20,9 @@
 ;(defn w   [k v] (c/exec :ceph :config-key :put k v))
 
 (defn -main [& args]
-  (println "Working!"))
+  ;(println "Working!")
+  tests/noop-test
+  )
 
 (defn ceph-test
   [version]
