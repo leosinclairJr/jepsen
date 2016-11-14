@@ -8,4 +8,4 @@
     ;;(is (= 0 1))))
 
 (deftest ceph-test
-  (is (:valid? (:results (jepsen/run! (ceph/ceph-test "3.4.5+dfsg-2"))))))
+  (is (:valid? (:results (jepsen/run! (jepsen/ceph/ceph-test ""))))))
