@@ -2,7 +2,7 @@
   (:require [clojure.tools.logging :refer :all]
             [clojure.java.io    :as io]
             [clojure.string     :as str]
-            [jepsen ;;[db         :as db]
+            [jepsen [db         :as db]
                     [checker    :as checker]
                     ;;[client     :as client]
                     [control    :as c]
@@ -13,7 +13,22 @@
                     ;;[util       :refer [timeout]]
              ]
             [jepsen.os.debian   :as debian]
-            [knossos.model      :as model]))
+            [knossos.model      :as model]
+  )
+)
+
+(defn db
+  "ceph DB."
+  []
+  (reify db/DB
+    (setup! [_ test node]
+      (info node "installing ceph"))
+
+    (teardown! [_ test node]
+      (info node "tearing down ceph")
+    )
+  )
+)
 
 ;;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
 (defn r   [k] (c/exec :ceph :config-key :get k) )
@@ -24,6 +39,7 @@
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
+         :db      db
          ;:db      (db version)
          ;:client  (client nil nil)
          :nemesis (nemesis/partition-random-halves)
@@ -35,7 +51,7 @@
                                             (gen/sleep 5)
                                             {:type :info, :f :stop}])))
                          (gen/time-limit 60))
-         :model   (model/set)
+         ;:model   (model/set)
          :checker (checker/compose
                     {:perf   (checker/perf)
                      :linear checker/linearizable})))
