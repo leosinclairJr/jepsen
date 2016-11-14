@@ -13,7 +13,8 @@
             [jepsen.os.debian   :as debian]
             [knossos.model      :as model]))
 
-(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
+;;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
+(defn r   [k] (c/exec :ceph :config-key :get k) )
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
 (defn ceph-test
