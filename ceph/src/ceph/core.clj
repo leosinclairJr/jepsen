@@ -23,8 +23,8 @@
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
-         :db      (db version)
-         :client  (client nil nil)
+         ;;:db      (db version)
+         ;;:client  (client nil nil)
          :nemesis (nemesis/partition-random-halves)
          :generator (->> (gen/mix [r w])
                          (gen/stagger 1)
