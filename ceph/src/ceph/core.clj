@@ -9,7 +9,7 @@
                     [generator  :as gen]
                     [nemesis    :as nemesis]
                     [tests      :as tests]
-                    [model]
+                    [model      :as model]
                     ;;[util       :refer [timeout]]
              ]
             [jepsen.os.debian   :as debian]
@@ -35,7 +35,7 @@
                                             (gen/sleep 5)
                                             {:type :info, :f :stop}])))
                          (gen/time-limit 60))
-         :model   (model/set)
+         ;;:model   (model/set)
          :checker (checker/compose
                     {:perf   (checker/perf)
                      :linear checker/linearizable})))
