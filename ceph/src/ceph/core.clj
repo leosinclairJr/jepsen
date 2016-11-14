@@ -1,6 +1,5 @@
 (ns ceph.core
-  (:require [avout.core         :as avout]
-            [clojure.tools.logging :refer :all]
+  (:require [clojure.tools.logging :refer :all]
             [clojure.java.io    :as io]
             [clojure.string     :as str]
             [jepsen [db         :as db]
