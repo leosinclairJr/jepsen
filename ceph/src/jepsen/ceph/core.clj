@@ -2,7 +2,7 @@
   (:require [clojure.tools.logging :refer :all]
             [clojure.java.io    :as io]
             [clojure.string     :as str]
-            [ceph ;;[db         :as db]
+            [jepsen ;;[db         :as db]
                     [checker    :as checker]
                     ;;[client     :as client]
                     [control    :as c]
