@@ -19,6 +19,8 @@
 ;(defn r   [k] (c/exec :ceph :config-key :get k) )
 ;(defn w   [k v] (c/exec :ceph :config-key :put k v))
 
+(defn -main [& args]
+  (println "Working!"))
 
 (defn ceph-test
   [version]
