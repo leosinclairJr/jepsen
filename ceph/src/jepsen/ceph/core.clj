@@ -20,7 +20,7 @@
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
 (defn -main [& args]
-  [version]
+  ;[version]
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
