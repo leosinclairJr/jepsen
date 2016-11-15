@@ -16,13 +16,14 @@
             [knossos.model      :as model]))
 
 (defn db
-  "ceph DB."
+  "ceph DB for a particular version."
   []
   (reify db/DB
     (setup! [_ test node]
-      (info node "installing ceph"))
+      (c/su
+        (info node "installing ceph" version)
 
-    (info node "id is" (ceph-node-id test node))
+        (info node "id is" (zk-node-id test node)))
     
     (teardown! [_ test node]
       (info node "tearing down ceph"))))
