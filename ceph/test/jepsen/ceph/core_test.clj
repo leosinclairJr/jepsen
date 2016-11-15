@@ -1,5 +1,6 @@
 (ns jepsen.ceph.core-test
   (:require [clojure.test :refer :all]
+            [jepsen.core :as jepsen]
             ;;[jepsen.ceph.core :refer :all]))
             [jepsen.ceph.core :as ceph]))
 
@@ -8,5 +9,5 @@
     ;;(is (= 0 1))))
 
 (deftest ceph-test
-  (is (:valid? (:results (jepsen/run! (jepsen/ceph/core/ceph-test ""))))))
+  (is (:valid? (:results (jepsen/run! (ceph/ceph-test ""))))))
   ;(is (:valid? (:results (range 5)))))
