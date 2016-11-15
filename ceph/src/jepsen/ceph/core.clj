@@ -21,7 +21,7 @@
   (reify db/DB
     (setup! [_ test node]
       (c/su
-        (info node "installing ceph" version)
+        (info node "installing ceph" )
 
         (info node "id is" (ceph-node-id test node))))
 
