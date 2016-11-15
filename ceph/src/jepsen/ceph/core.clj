@@ -13,9 +13,7 @@
                     ;;[util       :refer [timeout]]
              ]
             [jepsen.os.debian   :as debian]
-            [knossos.model      :as model]
-  )
-)
+            [knossos.model      :as model]))
 
 (defn db
   "ceph DB."
@@ -27,10 +25,7 @@
     (info node "id is" (ceph-node-id test node))
     
     (teardown! [_ test node]
-      (info node "tearing down ceph")
-    )
-  )
-)
+      (info node "tearing down ceph"))))
 
 (defn ceph-node-id
   "Given a test and a node name from that test, returns the ID for that node."
