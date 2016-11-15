@@ -8,5 +8,5 @@
     ;;(is (= 0 1))))
 
 (deftest ceph-test
-  ;(is (:valid? (:results (jepsen/run! (jepsen/ceph/ceph-test ""))))))
-  (is (:valid? (:results (range 5)))))
+  (is (:valid? (:results (jepsen/run! (jepsen/ceph/core/ceph-test ""))))))
+  ;(is (:valid? (:results (range 5)))))
