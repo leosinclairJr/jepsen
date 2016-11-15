@@ -15,6 +15,19 @@
             [jepsen.os.debian   :as debian]
             [knossos.model      :as model]))
 
+(defn ceph-node-ids
+  "Returns a map of node names to node ids."
+  [test]
+  (->> test
+       :nodes
+       (map-indexed (fn [i node] [node i]))
+       (into {})))
+
+(defn ceph-node-id
+  "Given a test and a node name from that test, returns the ID for that node."
+  [test node]
+  ((ceph-node-ids test) node))
+
 (defn db
   "ceph DB for a particular version."
   []
@@ -28,18 +41,6 @@
     (teardown! [_ test node]
       (info node "tearing down ceph"))))
 
-(defn ceph-node-id
-  "Given a test and a node name from that test, returns the ID for that node."
-  [test node]
-  ((ceph-node-ids test) node))
-
-(defn ceph-node-ids
-  "Returns a map of node names to node ids."
-  [test]
-  (->> test
-       :nodes
-       (map-indexed (fn [i node] [node i]))
-       (into {})))
 
 ;;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
 (defn r   [k] (c/exec :ceph :config-key :get k) )
