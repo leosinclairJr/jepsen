@@ -24,11 +24,26 @@
     (setup! [_ test node]
       (info node "installing ceph"))
 
+    (info node "id is" (ceph-node-id test node))
+    
     (teardown! [_ test node]
       (info node "tearing down ceph")
     )
   )
 )
+
+(defn ceph-node-id
+  "Given a test and a node name from that test, returns the ID for that node."
+  [test node]
+  ((ceph-node-ids test) node))
+
+(defn ceph-node-ids
+  "Returns a map of node names to node ids."
+  [test]
+  (->> test
+       :nodes
+       (map-indexed (fn [i node] [node i]))
+       (into {})))
 
 ;;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
 (defn r   [k] (c/exec :ceph :config-key :get k) )
