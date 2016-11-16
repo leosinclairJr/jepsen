@@ -46,6 +46,7 @@
 (defn r   [k] (c/exec :ceph :config-key :get k) )
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
+(comment
 (defn -main [& args]
   ;[version]
   (assoc tests/noop-test
@@ -67,11 +68,13 @@
          :checker (checker/compose
                     {:perf   (checker/perf)
                      :linear checker/linearizable})))
+)
 
-;(defn -main [& args]
-  ;(println "Working!")
-  ;tests/noop-test
-  ;)
+(defn -main [& args]
+  (println "Working!")
+  tests/noop-test
+  )
+
 (comment
 (defn ceph-test
   [version]
