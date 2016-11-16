@@ -7,7 +7,7 @@
                     ;;[client     :as client]
                     [control    :as c]
                     [generator  :as gen]
-                    ;[nemesis    :as nemesis]
+                    [nemesis    :as nemesis]
                     [tests      :as tests]
                     ;;[model      :as model]
                     [util       :refer [timeout]]
