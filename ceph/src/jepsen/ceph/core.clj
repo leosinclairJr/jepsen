@@ -43,34 +43,42 @@
       (info node "tearing down ceph"))))
 )
 
-;;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
-(defn r   [k] (c/exec :ceph :config-key :get k) )
+;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
+(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value))
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
-(comment
+
 (defn -main [str]
   ;[version]
   (println str)
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
-         ;:db      db
          ;:db      (db version)
          ;:client  (client nil nil)
-         ;:nemesis (nemesis/partition-random-halves)
-         :generator (->> r
-                         (gen/stagger 1)
+         :nemesis (nemesis/partition-random-halves)
+         ;:generator (->> r
+                         ;(gen/stagger 1)
                          ;(gen/clients)
-                         (gen/time-limit 15))
+                         ;(gen/time-limit 15))
+         :generator (->> (gen/mix [r w])
+                         (gen/stagger 1)
+                         (gen/nemesis
+                           (gen/seq (cycle [(gen/sleep 5)
+                                            {:type :info, :f :start}
+                                            (gen/sleep 5)
+                                            {:type :info, :f :stop}])))
+                         (gen/time-limit 60))
          ;:model   (model/set)
          ))
-)
 
+
+(comment
 ;& args
 (defn -main [str]
   (println "Working!")
   )
-
+)
 
 (comment
 (defn ceph-test
