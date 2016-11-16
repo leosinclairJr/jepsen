@@ -2,15 +2,15 @@
   (:require [clojure.tools.logging :refer :all]
             [clojure.java.io    :as io]
             [clojure.string     :as str]
-            [jepsen [db         :as db]
+            [jepsen ;[db         :as db]
                     [checker    :as checker]
                     ;;[client     :as client]
                     [control    :as c]
                     [generator  :as gen]
-                    [nemesis    :as nemesis]
+                    ;[nemesis    :as nemesis]
                     [tests      :as tests]
                     ;;[model      :as model]
-                    ;;[util       :refer [timeout]]
+                    [util       :refer [timeout]]
              ]
             [jepsen.os.debian   :as debian]
             [knossos.model      :as model]))
@@ -58,7 +58,7 @@
          :generator (->> r
                          (gen/stagger 1)
                          ;(gen/clients)
-                         (gen/time-limit 15)))
+                         (gen/time-limit 15))
          ;:model   (model/set)
          ))
 
