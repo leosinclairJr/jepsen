@@ -47,6 +47,7 @@
 (defn r   [k] (c/exec :ceph :config-key :get k) )
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
+(comment
 (defn -main [str]
   ;[version]
   (println str)
@@ -63,14 +64,13 @@
                          (gen/time-limit 15))
          ;:model   (model/set)
          ))
-
-(comment
-;& args
-(defn -main []
-  (println "Working!")
-  tests/noop-test
-  )
 )
+
+;& args
+(defn -main [str]
+  (println "Working!")
+  )
+
 
 (comment
 (defn ceph-test
