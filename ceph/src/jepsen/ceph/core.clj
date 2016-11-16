@@ -28,6 +28,7 @@
   [test node]
   ((ceph-node-ids test) node))
 
+(comment
 (defn db
   "ceph DB for a particular version."
   []
@@ -40,7 +41,7 @@
 
     (teardown! [_ test node]
       (info node "tearing down ceph"))))
-
+)
 
 ;;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
 (defn r   [k] (c/exec :ceph :config-key :get k) )
