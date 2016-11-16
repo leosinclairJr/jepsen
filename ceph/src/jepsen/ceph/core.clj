@@ -47,8 +47,9 @@
 (defn r   [k] (c/exec :ceph :config-key :get k) )
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
-(defn -main [ ]
+(defn -main [str]
   ;[version]
+  (println str)
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
