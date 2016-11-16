@@ -46,35 +46,29 @@
 (defn r   [k] (c/exec :ceph :config-key :get k) )
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
-(comment
-(defn -main [& args]
+(defn -main [ ]
   ;[version]
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
-         :db      db
+         ;:db      db
          ;:db      (db version)
          ;:client  (client nil nil)
-         :nemesis (nemesis/partition-random-halves)
-         :generator (->> (gen/mix [r w])
+         ;:nemesis (nemesis/partition-random-halves)
+         :generator (->> r
                          (gen/stagger 1)
-                         (gen/nemesis
-                           (gen/seq (cycle [(gen/sleep 5)
-                                            {:type :info, :f :start}
-                                            (gen/sleep 5)
-                                            {:type :info, :f :stop}])))
-                         (gen/time-limit 60))
+                         ;(gen/clients)
+                         (gen/time-limit 15)))
          ;:model   (model/set)
-         :checker (checker/compose
-                    {:perf   (checker/perf)
-                     :linear checker/linearizable})))
-)
+         ))
 
+(comment
 ;& args
 (defn -main []
   (println "Working!")
   tests/noop-test
   )
+)
 
 (comment
 (defn ceph-test
