@@ -70,7 +70,8 @@
                      :linear checker/linearizable})))
 )
 
-(defn -main [& args]
+;& args
+(defn -main []
   (println "Working!")
   tests/noop-test
   )
