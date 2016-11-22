@@ -2,7 +2,7 @@
   (:require [clojure.tools.logging :refer :all]
             [clojure.java.io    :as io]
             [clojure.string     :as str]
-            [jepsen ;[db         :as db]
+            [jepsen [db         :as db]
                     [checker    :as checker]
                     ;;[client     :as client]
                     [control    :as c]
@@ -28,7 +28,7 @@
   [test node]
   ((ceph-node-ids test) node))
 
-(comment
+
 (defn db
   "ceph DB for a particular version."
   []
@@ -41,19 +41,19 @@
 
     (teardown! [_ test node]
       (info node "tearing down ceph"))))
-)
+
 
 ;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
 (defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value))
 (defn w   [k v] (c/exec :ceph :config-key :put k v))
 
 
-(defn -main [str]
+(defn -main []
   ;[version]
-  (println str)
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
+         :db      db
          ;:db      (db version)
          ;:client  (client nil nil)
          :nemesis (nemesis/partition-random-halves)
