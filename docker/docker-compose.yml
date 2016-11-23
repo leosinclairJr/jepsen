@@ -6,6 +6,7 @@ services:
     build: ./control
     volumes:
     - /tmp:/tmp
+    - ./../ceph:/jepsen/ceph
     env_file: ./secret/control.env
     privileged: true
     links:

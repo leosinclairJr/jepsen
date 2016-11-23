@@ -1,10 +1,11 @@
 (ns jepsen.ceph.core
-  (:require [clojure.tools.logging :refer :all]
+  (:require [avout.core :as avout]
+	    [clojure.tools.logging :refer :all]
             [clojure.java.io    :as io]
             [clojure.string     :as str]
             [jepsen [db         :as db]
                     [checker    :as checker]
-                    ;;[client     :as client]
+                    [client     :as client]
                     [control    :as c]
                     [generator  :as gen]
                     [nemesis    :as nemesis]
@@ -28,7 +29,31 @@
   [test node]
   ((ceph-node-ids test) node))
 
+(comment
+(defn client
+  "A client for a single compare-and-set register"
+ ; [conn a]
+  [a]
+  (reify client/Client
+    (setup! [_ test node]
+      (let [;conn (avout/connect (name node))
+           ; a    (avout/zk-atom conn "/jepsen" 0)]
+	  a  0]
+        (client conn a)))
 
+    ;(invoke! [this test op])
+    
+    (invoke! [this test op]
+      (timeout 5000 (assoc op :type :info, :error :timeout)
+               (case (:f op)
+                ; :read (assoc op :type :ok, :value @a)
+                ; :write (do (avout/reset!! a (:value op)) (assoc op :type :ok))
+	        :read (c/exec :ceph :config-key :get @a :-o :value @a :&& :cat @a)
+	        )))
+
+    (teardown! [_ test]
+      (.close conn))))
+)
 (defn db
   "ceph DB for a particular version."
   []
@@ -43,34 +68,24 @@
       (info node "tearing down ceph"))))
 
 
-;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
-(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value))
-(defn w   [k v] (c/exec :ceph :config-key :put k v))
-
+;(defnr   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value :&& :echo :" ") )
+;(defn r   [k] (c/exec :ceph :config-key :get k :-o :value :&& :cat :value))
+;(defn w   [k v] (c/exec :ceph :config-key :put k v))
+(defn r   [_ _] {:type :info, :value nil})
+(defn w   [_ _] {:type :ok, :value (rand-int 5)})
 
 (defn -main []
   ;[version]
+  (println "main is executed 1")
   (assoc tests/noop-test
          :name    "ceph"
          :os      debian/os
-         :db      db
-         ;:db      (db version)
-         ;:client  (client nil nil)
-         :nemesis (nemesis/partition-random-halves)
-         ;:generator (->> r
-                         ;(gen/stagger 1)
-                         ;(gen/clients)
-                         ;(gen/time-limit 15))
-         :generator (->> (gen/mix [r w])
+         :generator (->> r
                          (gen/stagger 1)
-                         (gen/nemesis
-                           (gen/seq (cycle [(gen/sleep 5)
-                                            {:type :info, :f :start}
-                                            (gen/sleep 5)
-                                            {:type :info, :f :stop}])))
-                         (gen/time-limit 60))
-         ;:model   (model/set)
-         ))
+                        ; (gen/clients)
+                         (gen/time-limit 15))        
+  ) (println "main is executed 2")
+)
 
 
 (comment

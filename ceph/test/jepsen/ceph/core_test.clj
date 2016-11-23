@@ -9,5 +9,7 @@
     ;;(is (= 0 1))))
 
 (deftest ceph-test
-(:valid? (:results (jepsen/run! (ceph/-main "test case")))))
+;( :results (jepsen/run! (ceph/-main))))
+(let [test (jepsen/run! (ceph/-main))]
+    (is (:valid? (:results test)))))
   ;(is (:valid? (:results (range 5)))))
